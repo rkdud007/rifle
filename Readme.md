@@ -1,6 +1,12 @@
-# woodcock
+# rifle
 
-Woodcock is a blocktime estimator for Starknet written in Rust. Made by learning purpose. This project is inspired by ([snipe](https://github.com/0xcacti/snipe)).
+<div align="center">
+  <img src="public/rifle_banner.png" height="128">
+</div>
+
+---
+
+Rifle is a blocktime estimator for Starknet written in Rust. Made by learning purpose. This project is inspired by ([snipe](https://github.com/0xcacti/snipe)).
 
 ## Features
 
@@ -19,7 +25,7 @@ You can use options to choose. `-n mainnet` will allow you to query from Starken
 ## Usage
 
 ```
-Usage: woodcock [OPTIONS] [COMMAND]
+Usage: rifle [OPTIONS] [COMMAND]
 
 Commands:
   --to-time   Convert blocknumber to time. [aliases: btt]
@@ -27,7 +33,6 @@ Commands:
   help        Print this message or the help of the given subcommand(s)
 
 Options:
-  -t, --timezone <TIME_ZONE>  Timezone
   -n, --network <NETWORK>     Network: [mainnet/goerli/goerli2]
   -f, --format <TIME_FORMAT>  The format to use time
   -h, --help                  Print help
@@ -38,7 +43,7 @@ Options:
 ```
 Convert time to blocknumber.
 
-Usage: woodcock --to-block <TIME>
+Usage: rifle --to-block <TIME>
 
 Arguments:
   <TIME>  The time to convert
@@ -52,7 +57,7 @@ Options:
 ```
 Convert blocknumber to time.
 
-Usage: woodcock --to-time <BLOCK_NUMBER>
+Usage: rifle --to-time <BLOCK_NUMBER>
 
 Arguments:
   <BLOCK_NUMBER>  The blocknumber to convert

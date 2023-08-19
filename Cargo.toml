@@ -1,5 +1,5 @@
 [package]
-name = "woodcock"
+name = "rifle"
 description = "Starknet Blocktime estimator in Rust"
 version = "0.1.0"
 edition = "2021"

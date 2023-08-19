@@ -1,7 +1,7 @@
 use clap::{Parser, Subcommand};
 use starknet::providers::SequencerGatewayProvider;
 
-use woodcock::{blocknumber_to_timestamp, timestamp_to_blocknumber, timestamp_to_unix};
+use rifle::{blocknumber_to_timestamp, timestamp_to_blocknumber, timestamp_to_unix};
 
 #[derive(Debug, Parser)]
 struct Cli {
