@@ -6,7 +6,21 @@
 
 ---
 
-Rifle is a blocktime estimator for Starknet written in Rust. Made by learning purpose. This project is inspired by ([snipe](https://github.com/0xcacti/snipe)).
+Rifle is a blocktime estimator for Starknet written in Rust. Made by learning purpose. This project is inspired by ([snipe](https://github.com/0xcacti/snipe)). You can use package at [Crate.io](https://crates.io/crates/rifle)
+
+## Install
+
+Run the following Cargo command in your project directory:
+
+```sh
+cargo add rifle
+```
+
+Or add the following line to your Cargo.toml:
+
+```
+rifle = "0.1.0"
+```
 
 ## Features
 
