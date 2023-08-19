@@ -1,7 +1,7 @@
 # rifle
 
 <div align="center">
-  <img src="public/rifle_banner.png" height="128">
+  <img src="public/rifle_banner.png" width="500">
 </div>
 
 ---
