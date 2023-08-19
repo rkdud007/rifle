@@ -1,6 +1,6 @@
 # woodcock
 
-Woodcock is a blocktime estimator for Starknet written in Rust. This project is inspired by ([snipe](https://github.com/0xcacti/snipe)).
+Woodcock is a blocktime estimator for Starknet written in Rust. Made by learning purpose. This project is inspired by ([snipe](https://github.com/0xcacti/snipe)).
 
 ## Features
 
