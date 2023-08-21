@@ -36,6 +36,8 @@ This feature is using binary search algorithm to search for the nearest blocknum
 
 You can use options to choose. `-n mainnet` will allow you to query from Starkent mainnet, `-n goerli` will allow you to query from Starkent goerli, `-n goerli2` will allow you to query from Starkent goerli2.
 
+If you provide `--rpc-url`, it will get data from rpc client.
+
 ## Usage
 
 ```
@@ -48,6 +50,7 @@ Commands:
 
 Options:
   -n, --network <NETWORK>     Network: [mainnet/goerli/goerli2]
+  -u, --rpc-url <RPC_URL>     The RPC endpoint
   -f, --format <TIME_FORMAT>  The format to use time
   -h, --help                  Print help
 ```
@@ -83,5 +86,4 @@ Options:
 ## Improvement
 
 - [ ] timezone support
-- [ ] RPC support ( gateway will be deprecated )
 - [ ] algorithm upgrade?
