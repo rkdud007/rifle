@@ -4,27 +4,21 @@ use starknet::core::types::MaybePendingBlockWithTxHashes::{Block, PendingBlock};
 use starknet::providers::ProviderError::{ArrayLengthMismatch, Other, RateLimited, StarknetError};
 use starknet::{
     core::types::BlockId,
-    providers::{Provider, SequencerGatewayProvider},
+    providers::{AnyProvider, Provider},
 };
 
-pub async fn blocknumber_to_timestamp(
-    provider: &SequencerGatewayProvider,
-    blocknumber: u64,
-) -> Result<u64> {
+pub async fn blocknumber_to_timestamp(provider: &AnyProvider, blocknumber: u64) -> Result<u64> {
     let current_timstamp = get_block_timestamp(&provider, blocknumber).await?;
     Ok(current_timstamp)
 }
 
-pub async fn timestamp_to_blocknumber(
-    provider: &SequencerGatewayProvider,
-    timestamp: u64,
-) -> Result<u64> {
+pub async fn timestamp_to_blocknumber(provider: &AnyProvider, timestamp: u64) -> Result<u64> {
     let blocknumber = block_search(&provider, timestamp).await?;
     Ok(blocknumber)
 }
 
 // refered from https://github.com/0xcacti/snipe
-async fn block_search(provider: &SequencerGatewayProvider, target_timestamp: u64) -> Result<u64> {
+async fn block_search(provider: &AnyProvider, target_timestamp: u64) -> Result<u64> {
     let current_blocknumber = get_current_block_number(&provider).await?;
     let current_timstamp = get_block_timestamp(&provider, current_blocknumber).await?;
 
@@ -68,10 +62,7 @@ async fn block_search(provider: &SequencerGatewayProvider, target_timestamp: u64
     Ok(current_blocknumber)
 }
 
-async fn get_block_timestamp(
-    provider: &SequencerGatewayProvider,
-    block_number: u64,
-) -> Result<u64> {
+async fn get_block_timestamp(provider: &AnyProvider, block_number: u64) -> Result<u64> {
     let block = provider
         .get_block_with_tx_hashes(BlockId::Number(block_number))
         .await;
@@ -105,7 +96,7 @@ async fn get_block_timestamp(
     }
 }
 
-async fn get_current_block_number(provider: &SequencerGatewayProvider) -> Result<u64> {
+async fn get_current_block_number(provider: &AnyProvider) -> Result<u64> {
     let block_number = provider.block_number().await?;
     Ok(block_number)
 }

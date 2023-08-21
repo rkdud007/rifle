@@ -1,7 +1,10 @@
 use clap::{Parser, Subcommand};
-use starknet::providers::SequencerGatewayProvider;
+use starknet::providers::{
+    jsonrpc::HttpTransport, AnyProvider, JsonRpcClient, SequencerGatewayProvider,
+};
 
 use rifle::{blocknumber_to_timestamp, timestamp_to_blocknumber, timestamp_to_unix};
+use url::Url;
 
 #[derive(Debug, Parser)]
 struct Cli {
@@ -18,10 +21,11 @@ struct Cli {
     #[arg(help = "Network: [mainnet/goerli/goerli2]")]
     network: Option<String>,
 
-    // #[arg(short = 'u', long)]
-    // #[arg(value_name = "RPC_URL")]
-    // #[arg(help = "The RPC endpoint")]
-    // rpc_url: Option<String>,
+    #[arg(short = 'u', long)]
+    #[arg(value_name = "RPC_URL")]
+    #[arg(help = "The RPC endpoint")]
+    rpc_url: Option<String>,
+
     #[arg(short, long)]
     #[arg(value_name = "TIME_FORMAT")]
     #[arg(help = "The format to use time")]
@@ -55,15 +59,19 @@ enum Commands {
 async fn main() {
     let args = Cli::parse();
 
-    let mut provider = SequencerGatewayProvider::starknet_alpha_mainnet();
+    let mut provider =
+        AnyProvider::SequencerGateway(SequencerGatewayProvider::starknet_alpha_mainnet());
     match args.network {
         Some(network) => {
             if network == "goerli" {
                 println!("{}", "Use goerli network as provider");
-                provider = SequencerGatewayProvider::starknet_alpha_goerli();
+                provider =
+                    AnyProvider::SequencerGateway(SequencerGatewayProvider::starknet_alpha_goerli())
             } else if network == "goerli2" {
                 println!("{}", "Use goerli2 network as provider");
-                provider = SequencerGatewayProvider::starknet_alpha_goerli_2();
+                provider = AnyProvider::SequencerGateway(
+                    SequencerGatewayProvider::starknet_alpha_goerli_2(),
+                )
             }
         }
         None => {
@@ -71,13 +79,17 @@ async fn main() {
         }
     }
 
-    // match args.rpc_url {
-    //     Some(url) => {
-    //         let rpc_client = JsonRpcClient::new(HttpTransport::new(Url::parse(&url).unwrap()));
-    //         let time_result = blocknumber_to_timestamp(&rpc_client, block_number).await;
-    //     }
-    //     None => {}
-    // }
+    match args.rpc_url {
+        Some(rpc) => {
+            println!("{}", "Use rpc client as a provider");
+            provider = AnyProvider::JsonRpcHttp(JsonRpcClient::new(HttpTransport::new(
+                Url::parse(&rpc).unwrap(),
+            )))
+        }
+        None => {
+            println!("{}", "Use gateway as a provider");
+        }
+    }
 
     match args.command {
         Some(Commands::BlockToTime { block_number }) => {
